@@ -1,0 +1,9 @@
+{
+  "name": "haifhemha",
+  "version": "0.1.0",
+  "description": "Mobile-first FHEM frontend in Home-Assistant style",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=20" },
+  "license": "MIT"
+}

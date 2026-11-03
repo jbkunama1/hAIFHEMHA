@@ -1,0 +1,9 @@
+{
+  "name": "hAIFHEMHA",
+  "short_name": "FHEM",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#111111",
+  "theme_color": "#03a9f4",
+  "icons": []
+}
