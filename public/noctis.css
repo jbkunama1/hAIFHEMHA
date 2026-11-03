@@ -1,0 +1,6 @@
+/* Noctis-inspiriert (aFFekopp/noctis): dunkelblau mit blauem Akzent. Farben angenähert, nicht 1:1 aus der Original-YAML. */
+[data-theme=noctis]{--primary:#4a90e2;--on-primary:#fff;--bg:#0f1a2b;--card:rgba(30,45,70,.72);--text:#e6ecf5;--text2:#8da2c0;--divider:#24344f;--on:#f5a623;--off:#5a6f8f;--danger:#ef5350;--radius:14px;--shadow:0 4px 14px rgba(0,0,0,.35)}
+[data-theme=noctis] body{background:linear-gradient(160deg,#0b1424,#16253f) fixed}
+[data-theme=noctis] .card{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.05)}
+[data-theme=noctis] header{background:rgba(20,34,58,.85);backdrop-filter:blur(10px)}
+[data-theme=noctis] #drawer,[data-theme=noctis] dialog{background:#13213a}

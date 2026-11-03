@@ -58,6 +58,15 @@ const server = http.createServer(async (req, res) => {
       res.end(out);
       return;
     }
+    if (u.pathname === '/api/svg') {
+      // SVG-Plots (SVG_showLog) – nur validierte Parameter
+      const q = ['dev', 'logdev', 'gplotfile', 'logfile'].map((k) => [k, u.searchParams.get(k) || '']);
+      if (q.some(([, v]) => !/^[\w.\-]*$/.test(v))) { res.writeHead(400); res.end('bad params'); return; }
+      const r = await fetch(`${FHEM_URL}${WEB}/SVG_showLog?${q.map(([k, v]) => k + '=' + encodeURIComponent(v)).join('&')}&pos=`, { headers: fhemHeaders() });
+      res.writeHead(r.status, { 'Content-Type': 'image/svg+xml' });
+      res.end(Buffer.from(await r.arrayBuffer()));
+      return;
+    }
     if (u.pathname === '/api/events') {
       // Longpoll von FHEMWEB (wie die WebUI) -> SSE
       res.writeHead(200, { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache', Connection: 'keep-alive' });

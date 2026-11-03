@@ -2,26 +2,27 @@
 
 Mobile-first Web-App als **alternative Oberfläche für FHEM** im Look & Feel von Home Assistant. Läuft als eigener Docker-Container und spricht über denselben Weg mit FHEM wie die mitgelieferte FHEMWEB-WebUI (`/fhem?cmd=…&XHR=1&fwcsrf=…`).
 
-> Status: **v0.1 (Prototyp)**. Inspiriert vom [Home-Assistant-Frontend](https://github.com/home-assistant/frontend) (eigene Implementierung, kein Code übernommen).
+> Status: **v0.2 (Prototyp)**. Inspiriert vom [Home-Assistant-Frontend](https://github.com/home-assistant/frontend) (eigene Implementierung, kein Code übernommen).
 
-## Features (v0.1)
+## Features
 
 - Mobile-first UI: Drawer-Navigation, Karten-Grid, PWA-Manifest
-- Übersicht, Räume (aus Attribut `room`), Geräteliste mit Suche
-- Karten: Schalter (Tap = toggle), Dimmer-Slider (`set … pct`), Thermostat +/− , Sensorwerte
-- Gerätedialog: `set` (aus `PossibleSets`), Readings, Attribute (`attr`), `list`, `delete`
-- Konsole: beliebige FHEM-Befehle (`list`, `save`, `rereadcfg`, `define`, …)
+- Übersicht, Räume (Attribut `room`), Geräteliste mit Suche
+- Karten: Schalter (Tap = toggle), Dimmer (`pct`), Thermostat +/−, Rollos (`up`/`stop`/`down`), Farbwahl (`rgb`), Sensorwerte
+- Gerätedialog: `set` (aus `PossibleSets`), Readings, `attr`, `list`, `delete`
+- Konsole: beliebige FHEM-Befehle
+- **Plots**: SVG-Geräte via `SVG_showLog`
+- **Event-Monitor** (Live, letzte 300 Events)
+- **Neues Gerät**: `define`-Dialog + `save`
 - Live-Updates über FHEMWEB-Longpoll (`inform`) → SSE
-- CSRF-Token-Handling, optional Basic Auth zu FHEM, optionaler App-Passwortschutz
-- Themes: **HA Light**, **HA Dark**, **Midnight** (Platzhalter; zwei weitere Wunsch-Themes folgen)
+- Optional Basic Auth zu FHEM und App-Passwortschutz
+- Themes: **HA Light**, **HA Dark**, **Noctis** (dunkelblau, angelehnt an [aFFekopp/noctis](https://github.com/aFFekopp/noctis); Farben angenähert). Ein weiteres Theme folgt.
 
 ## Start
 
 ```bash
 docker compose up -d --build
 ```
-
-Umgebungsvariablen:
 
 | Variable | Bedeutung | Default |
 |---|---|---|
@@ -31,24 +32,24 @@ Umgebungsvariablen:
 | `APP_PASSWORD` | Passwortschutz der App (Basic Auth, beliebiger User) | leer |
 | `PORT` | Port im Container | `8080` |
 
-Portainer: `docker-compose.yml` als Stack einfügen, Variablen anpassen.
+Das Image wird per GitHub Actions nach `ghcr.io/jbkunama1/haifhemha:latest` gebaut (amd64, arm64, armv7).
 
 ## Sicherheit
 
-- Die Konsole führt **beliebige FHEM-Befehle** aus (wie die WebUI). Container nur im LAN betreiben oder `APP_PASSWORD` und einen Reverse Proxy mit TLS davor setzen.
-- Keine Zugangsdaten im Repo; alles per Umgebungsvariablen.
+- Die Konsole führt **beliebige FHEM-Befehle** aus (wie die WebUI). Nur im LAN betreiben oder `APP_PASSWORD` + TLS-Reverse-Proxy nutzen.
+- Keine Zugangsdaten im Repo.
 
 ## Eigene Themes
 
-In `public/themes.css` einen Block `[data-theme=meinname]{ --primary:…; --bg:…; … }` ergänzen und in `THEMES` (`public/app.js`) eintragen.
+`[data-theme=name]{…}` in einer CSS-Datei ergänzen und in `THEMES` (`public/app.js` bzw. `ext.js`) eintragen.
 
 ## Roadmap
 
-- Zwei weitere Themes
-- Raum-/Gruppen-Ansichten nach `group`/`sortby`, Icons aus `icon`-Attribut
-- Plots (SVG_/FileLog), Fensterrollos-Karte, Farbwahl (HUE/RGB)
-- Dateieditor (cfg), `define`-Dialog, Event-Monitor
-- Login-Sessions, Healthcheck-Details, GHCR-Build per GitHub Actions
+- [x] Noctis-Theme, Plots, Event-Monitor, define-Dialog, Rollo-/Farbkarten, GHCR-Workflow
+- [ ] Drittes Theme (Link folgt)
+- [ ] cfg-/Dateieditor
+- [ ] Plot-Navigation (Zeitraum), Icons aus `icon`-Attribut, `group`/`sortby`
+- [ ] Login-Sessions
 
 ## Lizenz
 
