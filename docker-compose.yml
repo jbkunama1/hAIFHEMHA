@@ -5,10 +5,17 @@ services:
     container_name: haifhemha
     restart: unless-stopped
     ports:
-      - "8088:8080"
+      - "8090:8080"
+    networks:
+      - highfishNetwork
     environment:
       FHEM_URL: "http://192.168.1.10:8083"   # FHEMWEB-Basis-URL (ohne /fhem)
       FHEM_USER: ""                          # optional (Basic Auth)
       FHEM_PASS: ""
       APP_PASSWORD: ""                       # optional: Schutz der App (Basic Auth, User: admin)
       FHEM_WEB_PATH: "/fhem"                 # Pfad von FHEMWEB (webname)
+
+networks:
+  highfishNetwork:
+    external: true
+    name: highfishNetwork
